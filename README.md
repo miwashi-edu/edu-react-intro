@@ -98,10 +98,10 @@ npm pkg set scripts.start="http-server public -p 3000"
 [curl - command line url](https://man7.org/linux/man-pages/man1/curl.1.html)
 : En slags textbaserad webbläsare
 
-[npm Node Package Manager](https://www.npmjs.com)
+[npm - Node Package Manager](https://www.npmjs.com)
 : En beroendehanterare (paket hanterare) för Node (alternativ Yarn, Yarn Berry, pnmp, Bower, Volta eller Rush).
 
-[npm pkg](https://www.npmjs.com/package/pkg)
+[npm pkg -](https://www.npmjs.com/package/pkg)
 : Ett NPM kommando för att ändra på package.json.
 
 
@@ -115,13 +115,79 @@ curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/re
 npm start
 ```
 
+### index.html
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello React!</title>
+        <script src="https://unpkg.com/react/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel" src="/App.jsx"></script>
+    </body>
+</html>
+```
+
+### App.jsx
+```jsx
+const App = () => {
+    return <h1>Hello, World!</h1>;
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
 [Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
 
-## Vi bryter ut <h1>Hello, World</h1> i en HelloWorld komponent.
+## Vi bryter ut &lt;h1&gt;Hello, World&lt;/h1&gt; i en HelloWorld komponent.
 
 ```bash
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/index-level-1b.html -o ./public/index.html
 curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1b.jsx -o ./public/App.jsx
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/HelloWorld-level-1.jsx -o ./public/HelloWorld.jsx
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/HelloWorld-level-1b.jsx -o ./public/HelloWorld.jsx
 npm start
+```
+
+### App.jsx
+```jsx
+const App = () => {
+    return <HelloWorld />;
+};
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+### HelloWorld.jsx
+```jsx
+const HelloWorld = () => {
+    return <h1>Hello, World!</h1>;
+};
+```
+
+[Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
+
+## Vi låter HelloWorld komponenten ta emot egenskaper (properties).
+
+```bash
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1c.jsx -o ./public/App.jsx
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/HelloWorld-level-1c.jsx -o ./public/HelloWorld.jsx
+npm start
+```
+
+### App.jsx
+```jsx
+const App = () => {
+    return <HelloWorld name="React" />;
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+### HelloWorld.jsx
+```jsx
+const HelloWorld = (props) => {
+    return <h1>Hello, {props.name}!</h1>;
+};
 ```
