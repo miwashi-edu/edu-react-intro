@@ -107,12 +107,21 @@ npm pkg set scripts.start="http-server public -p 3000"
 
 # level-1
 
-## Vi bryter ut Hello World till en komponent.
+## Vi lägger HTML i en App komponent.
 
-```Bash
+```bash
 curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/index-level-1.html -o ./public/index.html
 curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1.jsx -o ./public/App.jsx
 npm start
 ```
 
 [Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
+
+## Vi bryter ut <h1>Hello, World</h1> i en HelloWorld komponent.
+
+```bash
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/index-level-1b.html -o ./public/index.html
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1b.jsx -o ./public/App.jsx
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/HelloWorld-level-1.jsx -o ./public/HelloWorld.jsx
+npm start
+```
