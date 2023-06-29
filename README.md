@@ -58,6 +58,9 @@ npm pkg set scripts.start="http-server public -p 3000"
   </body>
 </html>
 ```
+> [http-server](https://www.npmjs.com/package/http-server) är en HTTPServer (HyperText Transfer Protocol)  som är innbyggd i Node.
+> Exempelvis använder ramverket [Express](https://www.npmjs.com/package/express) http-server och bygger
+> vidare på den genom att lägga in så kallade [middle wares](https://en.wikipedia.org/wiki/Middleware).
 
 > [Babel](https://babeljs.io) är en javascript kompilator (transpilator), den används för att översätta 
 > javascript till den version (ECMAScript ES5/ES6) som webbläsare förstår. Utan den är koden oförstålig
@@ -103,3 +106,13 @@ npm pkg set scripts.start="http-server public -p 3000"
 
 
 # level-1
+
+## Vi bryter ut Hello World till en komponent.
+
+```Bash
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/index-level-1.html -o ./public/index.html
+curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1.jsx -o ./public/App.jsx
+npm start
+```
+
+[Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
