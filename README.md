@@ -1,193 +1,151 @@
-# level-0
+# edu-react-intro-2
 
-## Enklaste React Applikationen
+## Create Project
 
 ```bash
-mkdir react-app
-cd react-app
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/index-level-0.html -o index.html
+cd ~
+cd ws
+rm -rf react-app # If it exists from before.
+mkdir react-app && cd react-app
 npm init -y
-npm pkg set scripts.start="http-server"
+
 npm install react react-dom
-npm install -D http-server
-npm start
+
+npm install --save-dev webpack
+npm install --save-dev webpack-cli
+npm install --save-dev webpack-dev-server
+npm install --save-dev babel-loader
+npm install --save-dev @babel/core
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/preset-react
+npm install --save-dev html-webpack-plugin
+
+npm pkg set scripts.start="webpack serve --mode development --open"
+npm pkg set scripts.build="webpack --mode production"
+
+mkdir {src,public}
+touch ./src/App.jsx
+touch ./src/App.css
+touch ./src/index.js
+touch ./public/index.html
 ```
-[Klicka här för att starta webbläsaren på port 8080](http://localhost:8080)
 
-## Vi putsar lite
-
-> Vi lägger till en public mapp  
-> Vi lägger till en favicon  
-> Vi startar på port 3000 istället
+## Skapa App.js
 
 ```bash
-npm pkg set scripts.start="http-server public -p 3000"
-mkdir public
-mv index.html public/
-curl https://www.jensenyh.se/favicon.ico -o ./public/favicon.ico
-npm pkg set scripts.start="http-server public -p 3000"
+# Create a basic App component
+cat > src/App.jsx << 'EOF'
+import React from 'react';
+
+function App() {
+  return (
+    <div>
+      <h1>Hello, React!</h1>
+    </div>
+  );
+}
+export default App;
+EOF
 ```
-[Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
 
-## Förklaringar
+## Create index.js
 
-### index.html
+> Copy paste this as whole and run all at once.
 
-> Vi läser in **react** och **react-dom** ramverket från *unpkg.com* istället för med *npm install*.  
-> Vi läser in **babel** från *unpkg.com, den behövs för att transpilera **jsx** filer till **js**.  
-> *Transpilera* betyder att översätta från ett människoläst språk till ett annat. 
-> Då vi översätter till språk som datorn ska läsa används ordet *kompilera*.
+```bash
+# Create a basic index.js file
+cat > src/index.js << 'EOF'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-```html
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+EOF
+```
+
+# Create index.html
+
+> Copy paste this as whole and run all at once.
+
+```bash
+# Create a basic index.html file
+cat > public/index.html << 'EOF'
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hello React!</title>
-    <script src="https://unpkg.com/react/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  </head>
-  <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React App</title>
+</head>
+<body>
     <div id="root"></div>
-    <script type="text/babel">
-      ReactDOM.render(
-        React.createElement('h1', null, 'Hello, world!'),
-        document.getElementById('root')
-      );
-    </script>
-  </body>
+</body>
 </html>
-```
-> [http-server](https://www.npmjs.com/package/http-server) är en HTTPServer (HyperText Transfer Protocol)  som är innbyggd i Node.
-> Exempelvis använder ramverket [Express](https://www.npmjs.com/package/express) http-server och bygger
-> vidare på den genom att lägga in så kallade [middle wares](https://en.wikipedia.org/wiki/Middleware).
-
-> [Babel](https://babeljs.io) är en javascript kompilator (transpilator), den används för att översätta 
-> javascript till den version (ECMAScript ES5/ES6) som webbläsare förstår. Utan den är koden oförstålig
-> för webbläsaren.
- 
-
-> [unpkg](unpkg.com) Är en Content Delivery Network (CDN), där kan man hitta de flesta publika javascript
-> ramverk och filer.
-
-> [favicon](https://en.wikipedia.org/wiki/Favicon) är en fil som ofta heter favicon.ico, man kan lägga den 
-> så att webbläsaren hittar den på http://localhost:3000/favicon.ico, eller så kan man använda en meta tagg 
-> och lägga den var man vill. Det är ikonen du ser i fliken på webbläsaren.
-```html
-<link rel="icon" type="image/png" href="img/favicon.png">
+EOF
 ```
 
-> **public** är ett namn man ofta väljer för statiska filer, dvs filer som inte ändrar sig mellan anrop. 
-> I en React application är *public* standard, men mång andra namn kan finnas.
-> Det kommer från den tiden då en webbläsare enbart var en mapp på nätet och inte kunde köra
-> dynamiskt innehåll överhuvudtaget.
-
-## Bash kommandon vi använt.
-[ls - list directory content](https://man7.org/linux/man-pages/man1/ls.1.html)
-: Vi listar innehållet i en katalog
-
-[cd - change directory](https://man7.org/linux/man-pages/man1/cd.1p.html)  
-: Vi ändrar arbetskatalog till ny
-
-[mv - move](https://man7.org/linux/man-pages/man1/mv.1.html)  
-: Vi flyttar fil. (I Unix är även kataloger filer.) Move används också för att byta namn på filer.
-
-[mkdir - make directory](https://man7.org/linux/man-pages/man1/mkdir.1.html)
-: Vi skapar en ny fil (katalog)
-
-[curl - command line url](https://man7.org/linux/man-pages/man1/curl.1.html)
-: En slags textbaserad webbläsare
-
-[npm - Node Package Manager](https://www.npmjs.com)
-: En beroendehanterare (paket hanterare) för Node (alternativ Yarn, Yarn Berry, pnmp, Bower, Volta eller Rush).
-
-[npm pkg -](https://www.npmjs.com/package/pkg)
-: Ett NPM kommando för att ändra på package.json.
-
-
-# level-1
-
-## Vi lägger HTML i en App komponent.
+## Configure babel
 
 ```bash
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/index-level-1.html -o ./public/index.html
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1.jsx -o ./public/App.jsx
-npm start
+cat > .babelrc << 'EOF'
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+EOF
 ```
 
-### index.html
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Hello React!</title>
-        <script src="https://unpkg.com/react/umd/react.development.js"></script>
-        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    </head>
-    <body>
-        <div id="root"></div>
-        <script type="text/babel" src="/App.jsx"></script>
-    </body>
-</html>
-```
-
-### App.jsx
-```jsx
-const App = () => {
-    return <h1>Hello, World!</h1>;
-};
-
-ReactDOM.render(<App />, document.getElementById('root'));
-```
-
-[Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
-
-## Vi bryter ut &lt;h1&gt;Hello, World&lt;/h1&gt; i en HelloWorld komponent.
+## Configure Webpack
 
 ```bash
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1b.jsx -o ./public/App.jsx
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/HelloWorld-level-1b.jsx -o ./public/HelloWorld.jsx
-npm start
-```
+cat > webpack.config.js << 'EOF'
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'), // Output directory
+    filename: 'bundle.js' // Output file
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/, // Handle .js and .jsx files
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader', // Use babel-loader for transpiling JavaScript
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'] // Use presets for modern JS and React
+          }
+        }
+      },
+      {
+        test: /\.css$/, // Handle CSS files
+        use: ['style-loader', 'css-loader'] // Use style-loader and css-loader for CSS
+      }
+    ]
+  },
 
-### App.jsx
-```jsx
-const App = () => {
-    return <HelloWorld />;
+  resolve: {
+    extensions: ['.js', '.jsx'] // Automatically resolve these extensions
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html', // HTML file to use as a template
+      filename: 'index.html' // Output filename
+    })
+  ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'), // Directory to serve files from
+    },
+    compress: true, // Enable gzip compression
+    port: 9000, // Port to run the server on
+    open: true, // Open the browser after server had been started
+    hot: true // Enable hot reloading
+  }
 };
-ReactDOM.render(<App />, document.getElementById('root'));
+EOF
 ```
 
-### HelloWorld.jsx
-```jsx
-const HelloWorld = () => {
-    return <h1>Hello, World!</h1>;
-};
-```
 
-[Klicka här för att starta webbläsaren på port 3000](http://localhost:3000)
-
-## Vi låter HelloWorld komponenten ta emot egenskaper (properties).
-
-```bash
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/App-level-1c.jsx -o ./public/App.jsx
-curl -L https://raw.githubusercontent.com/miwashi-edu/edu-react-intro/level-0/resources/HelloWorld-level-1c.jsx -o ./public/HelloWorld.jsx
-npm start
-```
-
-### App.jsx
-```jsx
-const App = () => {
-    return <HelloWorld name="React" />;
-};
-
-ReactDOM.render(<App />, document.getElementById('root'));
-```
-
-### HelloWorld.jsx
-```jsx
-const HelloWorld = (props) => {
-    return <h1>Hello, {props.name}!</h1>;
-};
-```
